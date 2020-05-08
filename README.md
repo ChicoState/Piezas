@@ -1,4 +1,5 @@
 # Piezas
+[![Build Status](https://travis-ci.org/garrett1001/Piezas.svg?branch=master)](https://travis-ci.org/garrett1001/Piezas)
 
 ## Associated Enumerated Types
 `Piece` has four possible values: `X`,`O`,`Invalid`, and `Blank`
