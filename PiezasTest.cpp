@@ -177,3 +177,22 @@ TEST(PiezasTest, gameStateXColCheck)
 	Piece actual = obj.gameState();
 	ASSERT_EQ(actual, X);
 }
+
+TEST(PiezasTest, gameStateOColCheck)
+{
+	Piezas obj;
+	obj.dropPiece(1);
+	obj.dropPiece(0);
+	obj.dropPiece(2);
+	obj.dropPiece(3);
+	obj.dropPiece(3);
+	obj.dropPiece(0);
+	obj.dropPiece(1);
+	obj.dropPiece(2);
+	obj.dropPiece(2);
+	obj.dropPiece(0);
+	obj.dropPiece(3);
+	obj.dropPiece(1);
+	Piece actual = obj.gameState();
+	ASSERT_EQ(actual, O);
+}
