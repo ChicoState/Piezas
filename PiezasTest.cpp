@@ -18,3 +18,36 @@ TEST(PiezasTest, sanityCheck)
 {
 	ASSERT_TRUE(true);
 }
+
+//Test dropPiece
+TEST(PiezasTest, dropPieceXCheck)
+{
+	Piezas obj;
+	Piece actual = obj.dropPiece(0);
+	ASSERT_EQ(actual, X);
+}
+
+TEST(PiezasTest, dropPieceOCheck)
+{
+	Piezas obj;
+	obj.dropPiece(0);
+	Piece actual = obj.dropPiece(0);
+	ASSERT_EQ(actual, O);
+}
+
+TEST(PiezasTest, dropPieceInvalidCheck)
+{
+	Piezas obj;
+	Piece actual = obj.dropPiece(6);
+	ASSERT_EQ(actual, Invalid);
+}
+
+TEST(PiezasTest, dropPieceFullCheck)
+{
+	Piezas obj;
+	obj.dropPiece(0);
+	obj.dropPiece(0);
+	obj.dropPiece(0);
+	Piece actual = obj.dropPiece(0);
+	ASSERT_EQ(actual, Blank);
+}
