@@ -67,7 +67,7 @@ TEST(PiezasTest, pieceAtSecondCheck)
 	obj.dropPiece(0);
 	obj.dropPiece(0);
 	Piece actual = obj.pieceAt(1,0);
-	ASSERT_EQ(actual, X);
+	ASSERT_EQ(actual, O);
 }
 
 TEST(PiezasTest, pieceAtBlankCheck)
