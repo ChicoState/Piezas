@@ -51,3 +51,45 @@ TEST(PiezasTest, dropPieceFullCheck)
 	Piece actual = obj.dropPiece(0);
 	ASSERT_EQ(actual, Blank);
 }
+
+//Test pieceAt
+TEST(PiezasTest, pieceAtFirstCheck)
+{
+	Piezas obj;
+	obj.dropPiece(0);
+	Piece actual = obj.pieceAt(0,0);
+	ASSERT_EQ(actual, X);
+}
+
+TEST(PiezasTest, pieceAtSecondCheck)
+{
+	Piezas obj;
+	obj.dropPiece(0);
+	obj.dropPiece(0);
+	Piece actual = obj.pieceAt(1,0);
+	ASSERT_EQ(actual, X);
+}
+
+TEST(PiezasTest, pieceAtBlankCheck)
+{
+	Piezas obj;
+	Piece actual = obj.pieceAt(0,0);
+	ASSERT_EQ(actual, Blank);
+}
+
+TEST(PiezasTest, pieceAtInvalidCheck)
+{
+	Piezas obj;
+	Piece actual = obj.pieceAt(0,6);
+	ASSERT_EQ(actual, Invalid);
+}
+
+//Test Reset
+TEST(PiezasTest, ResetCheck)
+{
+	Piezas obj;
+	obj.dropPiece(0);
+	obj.reset();
+	Piece actual = obj.pieceAt(0,0);
+	ASSERT_EQ(actual, Blank);
+}
