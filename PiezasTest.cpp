@@ -93,3 +93,68 @@ TEST(PiezasTest, ResetCheck)
 	Piece actual = obj.pieceAt(0,0);
 	ASSERT_EQ(actual, Blank);
 }
+
+//Test gameState
+TEST(PiezasTest, gameStateUnfinishedCheck)
+{
+	Piezas obj;
+	Piece actual = obj.gameState();
+	ASSERT_EQ(actual, Invalid);
+}
+
+TEST(PiezasTest, gameStateTieCheck)
+{
+	Piezas obj;
+	obj.dropPiece(0);
+	obj.dropPiece(0);
+	obj.dropPiece(0);
+	obj.dropPiece(1);
+	obj.dropPiece(1);
+	obj.dropPiece(1);
+	obj.dropPiece(2);
+	obj.dropPiece(2);
+	obj.dropPiece(2);
+	obj.dropPiece(3);
+	obj.dropPiece(3);
+	obj.dropPiece(3);
+	Piece actual = obj.gameState();
+	ASSERT_EQ(actual, Blank);
+}
+
+TEST(PiezasTest, gameStateXCheck)
+{
+	Piezas obj;
+	obj.dropPiece(0);
+	obj.dropPiece(0);
+	obj.dropPiece(2);
+	obj.dropPiece(2);
+	obj.dropPiece(1);
+	obj.dropPiece(0);
+	obj.dropPiece(3);
+	obj.dropPiece(2);
+	obj.dropPiece(1);
+	obj.dropPiece(3);
+	obj.dropPiece(1);
+	obj.dropPiece(3);
+	Piece actual = obj.gameState();
+	ASSERT_EQ(actual, X);
+}
+
+TEST(PiezasTest, gameStateOCheck)
+{
+	Piezas obj;
+	obj.dropPiece(0);
+	obj.dropPiece(0);
+	obj.dropPiece(1);
+	obj.dropPiece(1);
+	obj.dropPiece(2);
+	obj.dropPiece(2);
+	obj.dropPiece(0);
+	obj.dropPiece(3);
+	obj.dropPiece(2);
+	obj.dropPiece(3);
+	obj.dropPiece(3);
+	obj.dropPiece(1);
+	Piece actual = obj.gameState();
+	ASSERT_EQ(actual, O);
+}
