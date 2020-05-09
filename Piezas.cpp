@@ -25,7 +25,10 @@ Piezas::Piezas()
     board.resize(BOARD_ROWS);
     for(int i = 0; i < BOARD_ROWS; i++){
         board[i].resize(BOARD_COLS);
-    }//for
+        for(int j = 0; j < BOARD_COLS; j++){
+            board[i][j] = Blank;
+        }//for j
+    }//for i
     turn = X;
 }
 
