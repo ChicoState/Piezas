@@ -1,13 +1,10 @@
 # Building GoogleTest and running exercise-gtest unit tests against
-# This Makefile is based on the sample Makefile provided in the 
-# official GoogleTest GitHub Repo v1.7
-
-# REMOVED FOR REQUIRED ENV in CI GTEST_DIR = /usr/local/src/googletest/googletest
-
+# all code in SOURCECODE subdirectory. This Makefile is based on the
+# sample Makefile provided in the official GoogleTest GitHub Repo v1.7
 
 # Flags passed to the preprocessor and compiler
-CPPFLAGS += --coverage -std=c++11 -isystem $(GTEST_DIR)/include
-CXXFLAGS += -g -Wall -Wextra -pthread
+CPPFLAGS += --coverage -isystem $(GTEST_DIR)/include -std=c++17
+CXXFLAGS += -g -pthread
 
 # All tests produced by this Makefile.
 TESTS = PiezasTest
@@ -21,11 +18,7 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 all : $(TESTS)
 
 clean :
-	rm -f $(TESTS) gtest.a gtest_main.a *.o *.gcov *.gcda *.gcno *.gch
-
-test:
-	./PiezasTest
-	gcov -fbc Piezas.cpp
+	rm -f $(TESTS) gtest.a gtest_main.a *.o *.gcov *.gcda *.gcno
 
 # Builds gtest.a and gtest_main.a.
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
@@ -44,8 +37,8 @@ gtest.a : gtest-all.o
 gtest_main.a : gtest-all.o gtest_main.o
 	$(AR) $(ARFLAGS) $@ $^
 
-# Builds the Piezas class and associated PiezasTest
-Piezas.o : Piezas.h $(GTEST_HEADERS)
+# Builds the class and associated tests
+Piezas.o : Piezas.cpp Piezas.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Piezas.cpp
 
 PiezasTest.o : PiezasTest.cpp \
