@@ -42,7 +42,7 @@ void Piezas::reset()
 **/ 
 Piece Piezas::dropPiece(int column)
 {
-    return Blank;
+  return Blank;
 }
 
 /**
@@ -51,7 +51,7 @@ Piece Piezas::dropPiece(int column)
 **/
 Piece Piezas::pieceAt(int row, int column)
 {
-    return Blank;
+  return Blank;
 }
 
 /**
@@ -65,5 +65,5 @@ Piece Piezas::pieceAt(int row, int column)
 **/
 Piece Piezas::gameState()
 {
-    return Blank;
+  return Blank;
 }
