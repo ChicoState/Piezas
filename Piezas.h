@@ -1,7 +1,7 @@
 #ifndef _PIEZAS_H_
 #define _PIEZAS_H_
 #include <vector>
-
+#include <iostream>
 const int BOARD_ROWS = 3;
 const int BOARD_COLS = 4;
 
@@ -61,6 +61,8 @@ class Piezas
  * are no pieces there, or Invalid if the coordinates are out of bounds
 **/
 	Piece pieceAt(int row, int column);
+
+	int getMax(Piece piece);
 
 /**
  * Returns which Piece has won, if there is a winner, Invalid if the game

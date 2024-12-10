@@ -1,5 +1,9 @@
 #include "Piezas.h"
 #include <vector>
+#include <iostream>
+
+using namespace std;
+
 /** CLASS Piezas
  * Class for representing a Piezas vertical board, which is roughly based
  * on the game "Connect Four" where pieces are placed in a column and 
@@ -22,6 +26,8 @@
 **/
 Piezas::Piezas()
 {
+  vector<vector<Piece>> board(BOARD_ROWS,vector<Piece>(BOARD_COLS, Blank)); 
+  turn = X;
 }
 
 /**
@@ -30,6 +36,11 @@ Piezas::Piezas()
 **/
 void Piezas::reset()
 {
+  for(int i = 0; i < BOARD_ROWS; i++) {
+        for(int j = 0; j < BOARD_COLS; j++) {
+            board[i][j] = Blank;
+        }
+    }
 }
 
 /**
@@ -42,7 +53,19 @@ void Piezas::reset()
 **/ 
 Piece Piezas::dropPiece(int column)
 {
-  return Blank;
+  if(column < 0 || column >= BOARD_COLS) {
+        return Invalid;
+    }
+    
+    for(int i = 0; i < BOARD_ROWS; ++i) {
+        if(board[i][column] == Blank) {
+            board[i][column] = turn;
+            turn = (turn == X) ? O : X;
+            return board[i][column];
+        }
+    }
+    
+    return Blank;
 }
 
 /**
@@ -51,8 +74,45 @@ Piece Piezas::dropPiece(int column)
 **/
 Piece Piezas::pieceAt(int row, int column)
 {
-  return Blank;
+  if(row < 0 || row >= BOARD_ROWS || column < 0 || column >= BOARD_COLS) {
+        return Invalid;
+    }
+    return board[row][column];
 }
+
+int Piezas::getMax(Piece piece) {
+    int maxLength = 0;
+    
+    // Check horizontally
+    for (int i = 0; i < BOARD_ROWS; ++i) {
+        int count = 0;
+        for (int j = 0; j < BOARD_COLS; ++j) {
+            if (board[i][j] == piece) {
+                count++;
+                maxLength = max(maxLength, count);
+            } else {
+                count = 0;
+            }
+        }
+    }
+
+    // Check vertically
+    for (int j = 0; j < BOARD_COLS; ++j) {
+        int count = 0;
+        for (int i = 0; i < BOARD_ROWS; ++i) {
+            if (board[i][j] == piece) {
+                count++;
+                maxLength = max(maxLength, count);
+            } else {
+                count = 0; // reset count if the sequence breaks
+            }
+        }
+    }
+
+    return maxLength;
+}
+
+
 
 /**
  * Returns which Piece has won, if there is a winner, Invalid if the game
@@ -65,5 +125,26 @@ Piece Piezas::pieceAt(int row, int column)
 **/
 Piece Piezas::gameState()
 {
-  return Blank;
+  bool full = true;
+    for(int i = 0; i < BOARD_ROWS; ++i) {
+        for(int j = 0; j < BOARD_COLS; ++j) {
+            if(board[i][j] == Blank) {
+                full = false;
+            }
+        }
+    }
+    if(!full) {
+        return Invalid;
+    }
+
+    int max_X = getMax(X);
+    int max_O = getMax(O);
+
+    if(max_X > max_O) {
+        return X;
+    } else if(max_O > max_X) {
+        return O;
+    } else {
+        return Blank;
+    }
 }
